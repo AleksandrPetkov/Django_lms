@@ -1,1 +1,1 @@
-# Django_lms
+# Django_lesson_9_hw_1_PyPro-
