@@ -3,7 +3,10 @@ import datetime
 from django.db import models
 from faker import Faker
 
+from students.validators import validate_unique_email
+
 VALID_DOMAINS = ('gmail.com', 'yahoo.com', 'test.com')
+
 
 class Student(models.Model):
     first_name = models.CharField(
@@ -19,7 +22,7 @@ class Student(models.Model):
     age = models.PositiveIntegerField()
     birthday = models.DateField(default=datetime.date.today)
     city = models.CharField(max_length=25, null=True, blank=True)
-    email = models.EmailField()
+    email = models.EmailField(validators=[validate_unique_email])
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
