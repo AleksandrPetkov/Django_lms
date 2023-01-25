@@ -25,7 +25,8 @@ class Student(models.Model):
     email = models.EmailField(validators=[validate_unique_email])
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-
+    phone = models.CharField(max_length=25, null=True, blank=True)
+    
     class Meta:
         db_table = 'students'
 
