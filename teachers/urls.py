@@ -15,16 +15,20 @@ Including another URLconf
 """
 
 
-from django.contrib import admin
-from django.urls import path, include
-from core.views import index
 
+from django.urls import path
+from teachers.views import get_teachers
+from teachers.views import update_teacher
+from teachers.views import detail_teacher
+from teachers.views import create_teacher_view
+from teachers.views import delete_teacher
+
+app_name = 'teachers'
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', index, name='home'),
-    path('students/', include('students.urls')),
-    path('groups/', include('groups.urls')),
-    path('teachers/', include('teachers.urls')),
-
+    path('', get_teachers, name='list'),
+    path('create/', create_teacher_view, name='create'),
+    path('update/<int:pk>/', update_teacher, name='update'),
+    path('detail/<int:pk>/', detail_teacher, name='detail'),
+    path('delete/<int:pk>/', delete_teacher, name='delete')
 ]
