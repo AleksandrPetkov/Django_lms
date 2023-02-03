@@ -1,5 +1,6 @@
 import datetime
 
+from dateutil.relativedelta import relativedelta
 from django.db import models
 from faker import Faker
 
@@ -29,6 +30,9 @@ class Student(models.Model):
 
     class Meta:
         db_table = 'students'
+
+    def get_age(self):
+        return relativedelta(datetime.date.today(), self.birthday).years
 
     @classmethod
     def generate_fake_data(cls, cnt):
