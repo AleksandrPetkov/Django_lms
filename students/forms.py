@@ -1,4 +1,6 @@
 from django import forms
+from django_filters import FilterSet
+
 from students.models import Student
 from students.utils import normalize_phone
 
@@ -35,7 +37,8 @@ class UpdateStudentForm(forms.ModelForm):
             'first_name',
             'last_name',
             'birthday',
-            'city'
+            'city',
+            'phone'
         ]
         widgets = {
             'birthday': forms.DateInput(attrs={'type': 'date'})
@@ -45,3 +48,11 @@ class UpdateStudentForm(forms.ModelForm):
         value = self.cleaned_data.get('first_name')
 
         return value.capitalize()
+
+class StudentFilterForm(FilterSet):
+    class Meta:
+        model = Student
+        fields = {
+            'first_name': ['exact', 'icontains'],
+            'last_name': ['exact', 'startswith']
+        }
