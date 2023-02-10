@@ -41,7 +41,7 @@
                 <th>First name</th>
                 <th>Last name</th>
                 <th>Birthday</th>
-                <th>Age</th>
+                <th>Group</th>
                 <th><i class="bi bi-pencil-square"></i></th>
                 <th><i class="bi bi-trash3"></i></th>
             </tr>
@@ -53,8 +53,8 @@
                     <td><a href="{% url 'students:detail' st.pk %}">{{ st.first_name }}</a></td>
                     <td>{{ st.last_name }}</td>
                     <td class="text-center">{{ st.birthday|date:'d M Y (l)' }}</td>
-                    <td class="text-center">{% if st.get_age %}{{ st.get_age }}{% endif %}</td>
-                    {#                    <td>{% if st.city %}{{ st.city }}{% endif %}</td>#}
+{#                    <td class="text-center">{% if st.group.name %}{{ st.group.name }}{% endif %}</td>#}
+                    <td class="text-center">{{ st.group.group_name }}</td>
                     <td class="text-center"><a class="btn btn-outline-primary btn-sm"
                                                href="{% url 'students:update' st.pk %}">Edit</a></td>
                     <td class="text-center"><a class="btn btn-outline-danger btn-sm"

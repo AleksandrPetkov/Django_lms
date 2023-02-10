@@ -19,6 +19,8 @@ class Group(models.Model):
     class Meta:
         db_table = 'groups'
 
+    def __str__(self):
+        return f'{self.group_name}'
 
     @classmethod
     def generate_fake_data(cls, cnt):

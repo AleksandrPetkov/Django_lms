@@ -33,6 +33,9 @@ class Student(models.Model):
     class Meta:
         db_table = 'students'
 
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
+
     def get_age(self):
         return relativedelta(datetime.date.today(), self.birthday).years
 

@@ -6,7 +6,7 @@ from django.urls import reverse
 from webargs.fields import Str
 from groups.forms import CreateGroupForm, UpdateGroupForm, GroupFilterForm
 from groups.models import Group
-
+from students.models import Student
 
 
 def get_groups(request):
@@ -37,15 +37,16 @@ def create_group_view(request):
 
 def update_group(request, pk):
     group = get_object_or_404(Group, pk=pk)
+    students = {'students': Student.objects.filter(group=group)}
 
     if request.method == 'GET':
-        form = UpdateGroupForm(instance=group)
+        form = UpdateGroupForm(instance=group, initial=students)
     elif request.method == 'POST':
-        form = UpdateGroupForm(request.POST, instance=group)
+        form = UpdateGroupForm(request.POST, instance=group, initial=students)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('groups:list'))
-    return render(request, 'groups/update.html', {'form': form})
+    return render(request, 'groups/update.html', {'form': form, 'group': group})
 
 
 def delete_group(request, pk):

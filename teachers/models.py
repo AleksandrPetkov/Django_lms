@@ -18,9 +18,11 @@ class Teacher(models.Model):
     birthday = models.DateField(default=datetime.date.today)
     salary = models.PositiveIntegerField(default=6000)
 
-
     class Meta:
         db_table = 'teachers'
+
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
 
     @classmethod
     def generate_fake_data(cls, cnt):
