@@ -38,7 +38,8 @@ class UpdateStudentForm(forms.ModelForm):
             'last_name',
             'birthday',
             'city',
-            'phone'
+            'phone',
+            'group'
         ]
         widgets = {
             'birthday': forms.DateInput(attrs={'type': 'date'})

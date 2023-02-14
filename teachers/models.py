@@ -1,22 +1,14 @@
 import datetime
+from random import randint
 
 from django.db import models
 from faker import Faker
 
+from core.models import PersonModel
 
-class Teacher(models.Model):
-    first_name = models.CharField(
-        max_length=50,
-        verbose_name='First name',
-        db_column='f_name'
-    )
-    last_name = models.CharField(
-        max_length=50,
-        verbose_name='Last name',
-        db_column='l_name'
-    )
-    birthday = models.DateField(default=datetime.date.today)
-    salary = models.PositiveIntegerField(default=6000)
+
+class Teacher(PersonModel):
+    salary = models.PositiveIntegerField(default=6_000)
 
     class Meta:
         db_table = 'teachers'
@@ -25,12 +17,8 @@ class Teacher(models.Model):
         return f'{self.first_name} {self.last_name}'
 
     @classmethod
-    def generate_fake_data(cls, cnt):
-        f = Faker()
-        for _ in range(cnt):
-            s = cls()
-            s.first_name = f.first_name()
-            s.last_name = f.last_name()
-            s.birthday = f.date_between(start_date='-65y', end_date='-18y')
-            s.salary = f.random_int(min=6000, max=50000)
-            s.save()
+    def _generate(cls):
+        teacher = super()._generate()
+        teacher.salary = randint(6_000, 50_000)
+        teacher.save()
+

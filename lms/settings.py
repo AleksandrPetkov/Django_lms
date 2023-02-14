@@ -44,9 +44,11 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'django_filters',
 
+    'core.apps.CoreConfig',
     'students.apps.StudentsConfig',
     'groups.apps.GroupsConfig',
     'teachers.apps.TeachersConfig',
+    'courses.apps.CoursesConfig',
 ]
 
 MIDDLEWARE = [

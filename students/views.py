@@ -1,12 +1,14 @@
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.middleware.csrf import get_token
 from django.shortcuts import render, get_object_or_404
+from django.views.generic import UpdateView
 #from django.views.decorators.csrf import csrf_exempt
 from webargs.fields import Str
 from webargs.djangoparser import use_args
 from django.db.models import Q
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 
+from core.views import CustomUpdateBaseView
 from .forms import CreateStudentForm, UpdateStudentForm, StudentFilterForm
 from .models import Student
 #from .utils import format_list_students
@@ -55,7 +57,21 @@ def update_student(request, pk):
         if form.is_valid():
             form.save()
             return HttpResponseRedirect(reverse('students:list'))
-    return render(request, 'students/update.html', {'form':form})
+    return render(request, 'students/update.html', {'form': form})
+
+
+class CustomUpdateStudentView(CustomUpdateBaseView):
+    model = Student
+    form_class = UpdateStudentForm
+    success_url = 'students:list'
+    template_name = 'students/update.html'
+
+
+class UpdateStudentView(UpdateView):
+    model = Student
+    form_class = UpdateStudentForm
+    success_url = reverse_lazy('students:list')
+    template_name = 'students/update.html'
 
 
 def delete_student(request, pk):
