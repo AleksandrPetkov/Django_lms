@@ -16,17 +16,11 @@ class CourseBaseForm(forms.ModelForm):
 
 
 class CreateCourseForm(CourseBaseForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
     class Meta(CourseBaseForm.Meta):
         pass
 
 
 class UpdateCourseForm(CourseBaseForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-
     class Meta(CourseBaseForm.Meta):
         pass
 
