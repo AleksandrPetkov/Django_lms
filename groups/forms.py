@@ -15,14 +15,9 @@ class GroupBaseForm(forms.ModelForm):
             student.group = new_group
             student.save()
 
-
     class Meta:
         model = Group
-        fields = [
-            'group_name',
-            'group_start',
-            'group_description'
-        ]
+        fields = '__all__'
         widgets = {
             'group_start': forms.DateInput(attrs={'type': 'date'})
         }
@@ -31,7 +26,7 @@ class GroupBaseForm(forms.ModelForm):
 class CreateGroupForm(GroupBaseForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['students'].queryset = Student.objects.filter(group__isnull=True)
+        self.fields['students'].queryset = Student.objects.filter(group__isnull=True).select_related('group')
 
     class Meta(GroupBaseForm.Meta):
         pass
@@ -40,7 +35,7 @@ class CreateGroupForm(GroupBaseForm):
 class UpdateGroupForm(GroupBaseForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['students'].queryset = Student.objects.all()
+        self.fields['students'].queryset = Student.objects.all().select_related('group')
 
     class Meta(GroupBaseForm.Meta):
         exclude = [

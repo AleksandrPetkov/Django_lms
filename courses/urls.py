@@ -15,18 +15,22 @@ Including another URLconf
 """
 
 
-from django.contrib import admin
-from django.urls import path, include
-from core.views import index
 
+from django.urls import path
+
+from courses.views import get_courses
+from courses.views import create_course_view
+from courses.views import update_course
+from courses.views import detail_course
+from courses.views import delete_course
+
+app_name = 'courses'
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', index, name='home'),
-    path('students/', include('students.urls')),
-    path('groups/', include('groups.urls')),
-    path('teachers/', include('teachers.urls')),
-    path('__debug__/', include('debug_toolbar.urls')),
-    path('courses/', include('courses.urls'))
+    path('', get_courses, name='list'),
+    path('create/', create_course_view, name='create'),
+    path('update/<int:pk>/', update_course, name='update'),
+    path('detail/<int:pk>/', detail_course, name='detail'),
+    path('delete/<int:pk>/', delete_course, name='delete'),
 
 ]
