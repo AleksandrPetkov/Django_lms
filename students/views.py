@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.middleware.csrf import get_token
 from django.shortcuts import render, get_object_or_404
@@ -24,6 +26,7 @@ class ListStudentView(ListView):
         return filter_form
 
 
+@login_required
 def create_student_view(request):
     if request.method == 'GET':
         form = CreateStudentForm()
@@ -35,18 +38,20 @@ def create_student_view(request):
     return render(request, 'students/create.html', {'form': form})
 
 
-class UpdateStudentView(UpdateView):
+class UpdateStudentView(LoginRequiredMixin, UpdateView):
     model = Student
     form_class = UpdateStudentForm
     success_url = reverse_lazy('students:list')
     template_name = 'students/update.html'
 
 
+@login_required
 def detail_student(request, pk):
     student = get_object_or_404(Student, pk=pk)
     return render(request, 'students/detail.html', {'student': student})
 
 
+@login_required
 def delete_student(request, pk):
     student = get_object_or_404(Student, pk=pk)
     if request.method == 'POST':

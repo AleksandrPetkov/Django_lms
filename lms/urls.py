@@ -28,6 +28,7 @@ urlpatterns = [
     path('teachers/', include('teachers.urls')),
     path('__debug__/', include('debug_toolbar.urls')),
     path('courses/', include('courses.urls')),
-    path('accounts', include('accounts.urls'))
+    path('accounts/', include('accounts.urls')),
+    path('accounts/', include('django.contrib.auth.urls'))
 
 ]
