@@ -29,7 +29,10 @@ class Group(BaseModel):
         db_table = 'groups'
 
     def __str__(self):
-        return f'{self.group_name}'
+        return f'"{self.group_name}"'
+
+    def get_fname(self):
+        return self.teachers.all()
 
     @classmethod
     def generate_fake_data(cls, cnt):
