@@ -63,6 +63,9 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+
+    'core.middleware.SimpleMiddleware',
+    'core.middleware.MyMiddleware',
 ]
 
 ROOT_URLCONF = 'lms.urls'
